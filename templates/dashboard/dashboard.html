@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block nav %}
+<a href="/dashboard">Dashboard</a>
+{% if blog %}
+<a href="/dashboard/posts">Posts</a>
+<a href="/dashboard/domain">Custom domain</a>
+{% endif %}
+<a href="https://github.com/HermanMartinus/bearblog/wiki" target="_blank">Docs</a>
+<a href="/accounts/logout">Sign out</a>
+{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+{% if error %}
+  <p style="color:red">{{error}}</p>
+{% endif %}
+<form method="POST" class="post-form">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
+
+{% if blog %}
+<p>
+    <a href="{{ root }}" target="_blank">View site</a> |
+    <a href="{% url 'user_delete' %}">Delete account</a>
+</p>
+{% endif %}
+{% endblock %}
